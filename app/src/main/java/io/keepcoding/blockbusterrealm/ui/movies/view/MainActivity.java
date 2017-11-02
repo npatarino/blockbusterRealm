@@ -10,10 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 import io.keepcoding.blockbusterrealm.R;
-import io.keepcoding.blockbusterrealm.data.datasources.cache.CacheDataSource;
+import io.keepcoding.blockbusterrealm.data.datasources.cache.memory.CacheMemoryDataSource;
 import io.keepcoding.blockbusterrealm.data.datasources.net.NetDataSource;
 import io.keepcoding.blockbusterrealm.data.datasources.net.NetFakeDataSource;
-import io.keepcoding.blockbusterrealm.data.datasources.net.RetrofitNetDataSource;
 import io.keepcoding.blockbusterrealm.data.repositories.DataMoviesRepository;
 import io.keepcoding.blockbusterrealm.domain.business.Movies;
 import io.keepcoding.blockbusterrealm.domain.business.provider.MoviesCachePolicy;
@@ -66,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
             }
         };
 
-        final CacheDataSource cacheDataSource = new CacheDataSource(timeProvider, new MoviesCachePolicy(timeProvider));
+        final CacheMemoryDataSource cacheDataSource = new CacheMemoryDataSource(timeProvider, new MoviesCachePolicy(timeProvider));
         final NetDataSource netDataSource = new NetFakeDataSource(getApplicationContext());
         //final NetDataSource netDataSource = new RetrofitNetDataSource();
 

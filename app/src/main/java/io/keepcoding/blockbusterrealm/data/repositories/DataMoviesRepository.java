@@ -1,7 +1,7 @@
 package io.keepcoding.blockbusterrealm.data.repositories;
 
 import android.util.Log;
-import io.keepcoding.blockbusterrealm.data.datasources.cache.CacheDataSource;
+import io.keepcoding.blockbusterrealm.data.datasources.cache.memory.CacheMemoryDataSource;
 import io.keepcoding.blockbusterrealm.data.datasources.net.NetDataSource;
 import io.keepcoding.blockbusterrealm.domain.business.Movie;
 import io.keepcoding.blockbusterrealm.domain.business.Movies;
@@ -13,9 +13,9 @@ import io.keepcoding.blockbusterrealm.domain.repositories.MoviesRepository;
 public final class DataMoviesRepository implements MoviesRepository {
 
     private final NetDataSource netDataSource;
-    private final CacheDataSource cacheDataSource;
+    private final CacheMemoryDataSource cacheDataSource;
 
-    public DataMoviesRepository(final NetDataSource netDataSource, final CacheDataSource cacheDataSource) {
+    public DataMoviesRepository(final NetDataSource netDataSource, final CacheMemoryDataSource cacheDataSource) {
         this.netDataSource = netDataSource;
         this.cacheDataSource = cacheDataSource;
     }
