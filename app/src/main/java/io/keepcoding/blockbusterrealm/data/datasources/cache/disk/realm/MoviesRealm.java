@@ -1,8 +1,9 @@
 package io.keepcoding.blockbusterrealm.data.datasources.cache.disk.realm;
 
 import io.realm.RealmList;
+import io.realm.RealmObject;
 
-public class MoviesRealm {
+public class MoviesRealm extends RealmObject {
 
     private Long timestamp;
     private RealmList<MovieRealm> movies;
