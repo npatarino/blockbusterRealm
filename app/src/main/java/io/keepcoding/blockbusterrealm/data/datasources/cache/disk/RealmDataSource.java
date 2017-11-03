@@ -1,6 +1,8 @@
 package io.keepcoding.blockbusterrealm.data.datasources.cache.disk;
 
 import android.content.Context;
+import com.facebook.stetho.Stetho;
+import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 import io.keepcoding.blockbusterrealm.data.datasources.cache.CacheDataSource;
 import io.keepcoding.blockbusterrealm.data.datasources.cache.disk.realm.MovieRealm;
 import io.keepcoding.blockbusterrealm.data.datasources.cache.disk.realm.MoviesRealm;
@@ -31,6 +33,12 @@ public class RealmDataSource implements CacheDataSource {
             .name("blockbuster.realm")
             .build();
         Realm.setDefaultConfiguration(config);
+
+        Stetho.initialize(
+            Stetho.newInitializerBuilder(context)
+                  .enableDumpapp(Stetho.defaultDumperPluginsProvider(context))
+                  .enableWebKitInspector(RealmInspectorModulesProvider.builder(context).build())
+                  .build());
     }
 
     @Override public Long setCache(final Movies movies) {

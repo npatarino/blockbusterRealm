@@ -1,5 +1,6 @@
 package io.keepcoding.blockbusterrealm.data.datasources.net;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import io.keepcoding.blockbusterrealm.data.datasources.net.entities.mappers.MoviesMapper;
 import io.keepcoding.blockbusterrealm.data.datasources.net.entities.movie.MovieEntity;
 import io.keepcoding.blockbusterrealm.data.datasources.net.entities.movie.MovieResponse;
@@ -12,6 +13,7 @@ import io.keepcoding.blockbusterrealm.domain.business.exceptions.NotFoundExcepti
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import okhttp3.OkHttpClient;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -23,7 +25,12 @@ public final class RetrofitNetDataSource implements NetDataSource {
     private final Retrofit apiClient;
 
     public RetrofitNetDataSource() {
-        this.apiClient = new Retrofit.Builder().baseUrl("https://yts.ag/api/v2/").addConverterFactory(GsonConverterFactory.create()).build();
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+            .addNetworkInterceptor(new StethoInterceptor())
+            .build();
+        this.apiClient = new Retrofit.Builder().baseUrl("https://yts.ag/api/v2/")
+                                               .client(okHttpClient)
+                                               .addConverterFactory(GsonConverterFactory.create()).build();
     }
 
     @Override public Movies getAll() throws NetworkException, NotFoundException {

@@ -15,6 +15,7 @@ import io.keepcoding.blockbusterrealm.data.datasources.cache.CacheDataSource;
 import io.keepcoding.blockbusterrealm.data.datasources.cache.disk.RealmDataSource;
 import io.keepcoding.blockbusterrealm.data.datasources.net.NetDataSource;
 import io.keepcoding.blockbusterrealm.data.datasources.net.NetFakeDataSource;
+import io.keepcoding.blockbusterrealm.data.datasources.net.RetrofitNetDataSource;
 import io.keepcoding.blockbusterrealm.data.repositories.DataMoviesRepository;
 import io.keepcoding.blockbusterrealm.domain.business.Movie;
 import io.keepcoding.blockbusterrealm.domain.business.Movies;
@@ -71,8 +72,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
         };
 
         final CacheDataSource cacheDataSource = new RealmDataSource(getApplicationContext(), new MoviesCachePolicy(timeProvider), timeProvider);
-        final NetDataSource netDataSource = new NetFakeDataSource(getApplicationContext());
-        //final NetDataSource netDataSource = new RetrofitNetDataSource();
+        //final NetDataSource netDataSource = new NetFakeDataSource(getApplicationContext());
+        final NetDataSource netDataSource = new RetrofitNetDataSource();
 
         return new ListMovies(new DataMoviesRepository(netDataSource, cacheDataSource));
     }
