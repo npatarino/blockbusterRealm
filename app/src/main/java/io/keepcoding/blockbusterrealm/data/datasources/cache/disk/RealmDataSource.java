@@ -5,6 +5,7 @@ import io.keepcoding.blockbusterrealm.data.datasources.cache.CacheDataSource;
 import io.keepcoding.blockbusterrealm.data.datasources.cache.disk.realm.MovieRealm;
 import io.keepcoding.blockbusterrealm.data.datasources.cache.disk.realm.MoviesRealm;
 import io.keepcoding.blockbusterrealm.data.datasources.cache.disk.realm.mappers.MoviesRealmMapper;
+import io.keepcoding.blockbusterrealm.data.datasources.cache.disk.realm.migration.MovieMigration;
 import io.keepcoding.blockbusterrealm.domain.business.Movie;
 import io.keepcoding.blockbusterrealm.domain.business.Movies;
 import io.keepcoding.blockbusterrealm.domain.business.exceptions.InvalidCacheException;
@@ -16,6 +17,7 @@ import io.realm.RealmConfiguration;
 
 public class RealmDataSource implements CacheDataSource {
 
+    public static final int SCHEMA_VERSION = 2;
     private final MoviesCachePolicy policy;
     private final TimeProvider timeProvider;
 
@@ -23,7 +25,11 @@ public class RealmDataSource implements CacheDataSource {
         this.policy = policy;
         this.timeProvider = timeProvider;
         Realm.init(context);
-        RealmConfiguration config = new RealmConfiguration.Builder().schemaVersion(1).name("blockbuster.realm").build();
+        RealmConfiguration config = new RealmConfiguration.Builder()
+            .schemaVersion(SCHEMA_VERSION)
+            .migration(new MovieMigration())
+            .name("blockbuster.realm")
+            .build();
         Realm.setDefaultConfiguration(config);
     }
 
