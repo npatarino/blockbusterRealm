@@ -43,8 +43,12 @@ public class RealmDataSource implements CacheDataSource {
     @Override public Movies getChachedMovies() throws InvalidCacheException {
         final Realm realm = Realm.getDefaultInstance();
         final MoviesRealm moviesRealm = realm.where(MoviesRealm.class).equalTo("key", MoviesRealmMapper.DEFAULT_KEY).findFirst();
-        if(moviesRealm == null) {
-            throw new InvalidCacheException("Empty caché");
+        if (moviesRealm == null) {
+            throw new InvalidCacheException("Empty cache");
+        }
+
+        if (!policy.areMoviesValid(moviesRealm.getTimestamp())) {
+            throw new InvalidCacheException("Invalid cache");
         }
 
         final MoviesRealmMapper moviesRealmMapper = new MoviesRealmMapper();
