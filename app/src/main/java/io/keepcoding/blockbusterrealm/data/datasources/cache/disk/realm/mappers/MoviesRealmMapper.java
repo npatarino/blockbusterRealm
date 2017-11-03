@@ -18,7 +18,8 @@ public class MoviesRealmMapper {
                          movieRealm.getTitleLong(),
                          movieRealm.getCoverSmallUrl(),
                          movieRealm.getCoverMediumUrl(),
-                         movieRealm.getCoverLargeUrl());
+                         movieRealm.getCoverLargeUrl(),
+                         movieRealm.getDescription());
     }
 
     public MovieRealm map(Movie movie) {
@@ -29,6 +30,7 @@ public class MoviesRealmMapper {
         movieRealm.setCoverSmallUrl(movie.getCoverSmallUrl());
         movieRealm.setCoverMediumUrl(movie.getCoverMediumUrl());
         movieRealm.setCoverLargeUrl(movie.getCoverLargeUrl());
+        movieRealm.setDescription(movie.getDescription());
         return movieRealm;
     }
 

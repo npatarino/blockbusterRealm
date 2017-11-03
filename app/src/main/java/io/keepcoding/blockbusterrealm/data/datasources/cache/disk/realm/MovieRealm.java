@@ -10,9 +10,18 @@ public class MovieRealm extends RealmObject {
     private String coverSmallUrl;
     private String coverMediumUrl;
     private String coverLargeUrl;
+    private String description;
 
     public String getId() {
         return id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(final String description) {
+        this.description = description;
     }
 
     public void setId(final String id) {

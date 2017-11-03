@@ -8,15 +8,17 @@ public final class Movie {
     private final String coverSmallUrl;
     private final String coverMediumUrl;
     private final String coverLargeUrl;
+    private final String description;
 
     public Movie(final String id, final String title, final String titleLong, final String coverSmallUrl, final String coverMediumUrl,
-                 final String coverLargeUrl) {
+                 final String coverLargeUrl, final String description) {
         this.id = id;
         this.title = title;
         this.titleLong = titleLong;
         this.coverSmallUrl = coverSmallUrl;
         this.coverMediumUrl = coverMediumUrl;
         this.coverLargeUrl = coverLargeUrl;
+        this.description = description;
     }
 
     public String getId() {
@@ -54,5 +56,9 @@ public final class Movie {
 
     @Override public int hashCode() {
         return id.hashCode();
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

@@ -39,7 +39,7 @@ public class NetFakeDataSource implements NetDataSource {
     }
 
     @Override public Movie getById(final String id) throws NotFoundException, NetworkException {
-        return new Movie("", "", "", "", "", "");
+        return new Movie("", "", "", "", "", "", "");
     }
 
     private Movies getMappedMovies(@NotNull List<MovieEntity> movieEntities) throws NotFoundException {

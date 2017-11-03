@@ -60,6 +60,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         toolbar.setTitle(movie.getTitle());
         Picasso.with(movieImage.getContext()).load(movie.getCoverLargeUrl()).into(movieImage);
         movieTitle.setText(movie.getTitleLong());
+        movieDescription.setText(movie.getDescription());
     }
 
     @Override public void showError() {
