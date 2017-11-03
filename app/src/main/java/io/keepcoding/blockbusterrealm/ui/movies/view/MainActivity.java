@@ -1,5 +1,6 @@
 package io.keepcoding.blockbusterrealm.ui.movies.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,10 +16,13 @@ import io.keepcoding.blockbusterrealm.data.datasources.cache.disk.RealmDataSourc
 import io.keepcoding.blockbusterrealm.data.datasources.net.NetDataSource;
 import io.keepcoding.blockbusterrealm.data.datasources.net.NetFakeDataSource;
 import io.keepcoding.blockbusterrealm.data.repositories.DataMoviesRepository;
+import io.keepcoding.blockbusterrealm.domain.business.Movie;
 import io.keepcoding.blockbusterrealm.domain.business.Movies;
 import io.keepcoding.blockbusterrealm.domain.business.provider.MoviesCachePolicy;
 import io.keepcoding.blockbusterrealm.domain.business.provider.TimeProvider;
 import io.keepcoding.blockbusterrealm.domain.usecases.ListMovies;
+import io.keepcoding.blockbusterrealm.ui.movie.view.DetailActivity;
+import io.keepcoding.blockbusterrealm.ui.movie.view.DetailView;
 import io.keepcoding.blockbusterrealm.ui.movies.presenter.MainPresenter;
 import io.keepcoding.blockbusterrealm.ui.movies.view.adapter.MoviesAdapter;
 
@@ -101,5 +105,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override public void clearMovies() {
         adapter.add(new Movies());
         adapter.notifyDataSetChanged();
+    }
+
+    @Override public void goToDetail(final Movie movie) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(DetailActivity.MOVIE_ID, movie.getId());
+        startActivity(intent);
     }
 }

@@ -1,5 +1,6 @@
 package io.keepcoding.blockbusterrealm.ui.movies.view;
 
+import io.keepcoding.blockbusterrealm.domain.business.Movie;
 import io.keepcoding.blockbusterrealm.domain.business.Movies;
 
 public interface MainView {
@@ -17,4 +18,6 @@ public interface MainView {
     void showProgressBar();
 
     void clearMovies();
+
+    void goToDetail(Movie movie);
 }

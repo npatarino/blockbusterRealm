@@ -23,7 +23,7 @@ public class MainPresenter {
     }
 
     public void onMovieClicked(final Movie movie) {
-
+        view.goToDetail(movie);
     }
 
     public void reload() {

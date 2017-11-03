@@ -2,6 +2,7 @@ package io.keepcoding.blockbusterrealm.data.datasources.cache.disk;
 
 import android.content.Context;
 import io.keepcoding.blockbusterrealm.data.datasources.cache.CacheDataSource;
+import io.keepcoding.blockbusterrealm.data.datasources.cache.disk.realm.MovieRealm;
 import io.keepcoding.blockbusterrealm.data.datasources.cache.disk.realm.MoviesRealm;
 import io.keepcoding.blockbusterrealm.data.datasources.cache.disk.realm.mappers.MoviesRealmMapper;
 import io.keepcoding.blockbusterrealm.domain.business.Movie;
@@ -48,6 +49,7 @@ public class RealmDataSource implements CacheDataSource {
         }
 
         if (!policy.areMoviesValid(moviesRealm.getTimestamp())) {
+            realm.close();
             throw new InvalidCacheException("Invalid cache");
         }
 
@@ -58,6 +60,14 @@ public class RealmDataSource implements CacheDataSource {
     }
 
     @Override public Movie getChachedMovie(final String id) throws InvalidCacheException, NotFoundException {
-        return null;
+        final Realm realm = Realm.getDefaultInstance();
+        final MovieRealm movieRealm = realm.where(MovieRealm.class).equalTo("id", id).findFirst();
+        if (movieRealm == null) {
+            realm.close();
+            throw new NotFoundException("");
+        }
+        final Movie movie = new MoviesRealmMapper().map(movieRealm);
+        realm.close();
+        return movie;
     }
 }
