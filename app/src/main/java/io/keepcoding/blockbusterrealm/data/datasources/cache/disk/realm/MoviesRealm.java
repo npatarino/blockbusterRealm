@@ -8,7 +8,7 @@ public class MoviesRealm extends RealmObject {
 
     @PrimaryKey private String key;
     private Long timestamp;
-    private RealmList<MovieRealm> movies;
+    private RealmList<MovieRealm> movies = new RealmList<>();
 
     public Long getTimestamp() {
         return timestamp;

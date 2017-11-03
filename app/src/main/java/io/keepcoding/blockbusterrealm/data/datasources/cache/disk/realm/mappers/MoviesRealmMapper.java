@@ -9,7 +9,7 @@ import java.util.Iterator;
 
 public class MoviesRealmMapper {
 
-    private static final String DEFAULT_KEY = "UNIQUE";
+    public static final String DEFAULT_KEY = "UNIQUE";
 
     public Movie map(MovieRealm movieRealm) {
 
@@ -46,5 +46,14 @@ public class MoviesRealmMapper {
         moviesRealm.setTimestamp(timestamp);
         moviesRealm.setKey(DEFAULT_KEY);
         return moviesRealm;
+    }
+
+    public Movies map(MoviesRealm moviesRealm) {
+        final Movies movies = new Movies();
+        for (MovieRealm movieRealm : moviesRealm.getMovies()) {
+            final Movie map = map(movieRealm);
+            movies.add(map);
+        }
+        return movies;
     }
 }

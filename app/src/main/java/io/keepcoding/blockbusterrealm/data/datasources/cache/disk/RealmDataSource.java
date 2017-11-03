@@ -41,7 +41,16 @@ public class RealmDataSource implements CacheDataSource {
     }
 
     @Override public Movies getChachedMovies() throws InvalidCacheException {
-        return null;
+        final Realm realm = Realm.getDefaultInstance();
+        final MoviesRealm moviesRealm = realm.where(MoviesRealm.class).equalTo("key", MoviesRealmMapper.DEFAULT_KEY).findFirst();
+        if(moviesRealm == null) {
+            throw new InvalidCacheException("Empty caché");
+        }
+
+        final MoviesRealmMapper moviesRealmMapper = new MoviesRealmMapper();
+        final Movies movies = moviesRealmMapper.map(moviesRealm);
+        realm.close();
+        return movies;
     }
 
     @Override public Movie getChachedMovie(final String id) throws InvalidCacheException, NotFoundException {
